@@ -1,20 +1,30 @@
-import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
-import { Context } from '../context/BlogContext';
-import BlogPostForm from '../components/BlogPostForm';
+import React, { useState, useContext } from 'react';
+import { StyleSheet, View, Button } from 'react-native';
+import { Context } from '../context/ToDoContext';
+import ToDoForm from '../components/ToDoForm';
+import { Modal } from 'react-native';
 
 const CreateScreen = ({ navigation }) => {
-  const { addBlogPost } = useContext(Context);
+  const { addToDo } = useContext(Context);
 
   return (
-    <BlogPostForm
-      onSubmit={(title, content) => {
-        addBlogPost(title, content, () => navigation.navigate('Index'));
-      }}
-    />
+    <View>
+      <ToDoForm
+        onSubmit={(title) => {
+          addToDo(title, () => navigation.navigate('Index'));
+        }}
+      />
+
+      <Button title="Cancel" onPress={() => navigation.navigate('Index')} />
+    </View>
+
   );
 };
+// CreateScreen.navigationOptions = ({navigation}) =>{
+//   return(
 
+//   );
+// };
 const styles = StyleSheet.create({});
 
 export default CreateScreen;

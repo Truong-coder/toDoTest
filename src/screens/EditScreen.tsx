@@ -1,24 +1,33 @@
-import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
-import { Context } from '../context/BlogContext';
-import BlogPostForm from '../components/BlogPostForm';
+import React, { useState, useContext } from 'react';
+import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Context } from '../context/ToDoContext';
+import ToDoForm from '../components/ToDoForm';
 
 const EditScreen = ({ navigation }) => {
   const id = navigation.getParam('id');
-  const { state, editBlogPost } = useContext(Context);
+  const { state, editToDo } = useContext(Context);
 
-  const blogPost = state.find(blogPost => blogPost.id === id);
+  const toDo = state.find((toDo) => toDo.id === navigation.getParam('id'));
 
+  const [title, setTitle] = useState(toDo.title);
   return (
-    <BlogPostForm
-      initialValues={{ title: blogPost.title, content: blogPost.content }}
-      onSubmit={(title, content) => {
-        editBlogPost(id, title, content, () => navigation.pop());
-      }}
-    />
+    <View>
+      <ToDoForm
+        initialValues={{title: toDo.title}}
+        onSubmit={(title) => {
+          editToDo(id, title, () => navigation.pop());
+        }}
+      />
+      <Button title="Cancel" onPress={() => navigation.navigate('Index')} />
+
+    </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    color: '#000000',
+  }
+});
 
 export default EditScreen;
