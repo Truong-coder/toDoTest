@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import { Context } from '../context/ToDoContext';
 import ToDoForm from '../components/ToDoForm';
 
@@ -7,14 +7,14 @@ const EditScreen = ({ navigation }) => {
   const id = navigation.getParam('id');
   const { state, editToDo } = useContext(Context);
 
-  const toDo = state.find((toDo) => toDo.id === navigation.getParam('id'));
+  const toDo = state.find((toDo: { id: any; }) => toDo.id === navigation.getParam('id'));
 
   const [title, setTitle] = useState(toDo.title);
   return (
     <View>
       <ToDoForm
-        initialValues={{title: toDo.title}}
-        onSubmit={(title) => {
+        initialValues={{ title: toDo.title }}
+        onSubmit={(title: any) => {
           editToDo(id, title, () => navigation.pop());
         }}
       />
@@ -24,10 +24,6 @@ const EditScreen = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  text: {
-    color: '#000000',
-  }
-});
+const styles = StyleSheet.create({});
 
 export default EditScreen;

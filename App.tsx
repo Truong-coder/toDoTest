@@ -6,7 +6,8 @@ import { Provider } from './src/context/ToDoContext';
 import ShowScreen from './src/screens/ShowScreen';
 import CreateScreen from './src/screens/CreateScreen';
 import EditScreen from './src/screens/EditScreen';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 const navigator = createStackNavigator(
   {
     Index: IndexScreen,
@@ -23,11 +24,10 @@ const navigator = createStackNavigator(
 );
 const App = createAppContainer(navigator);
 export default () => {
-
-  return(
+  return (
     <Provider>
-  <App />
-    </Provider >
+      <App />
+    </Provider>
   );
 };
 

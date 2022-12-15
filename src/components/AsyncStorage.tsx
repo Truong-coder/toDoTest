@@ -1,15 +1,22 @@
-// rnrs
-import React from 'React';
-import {Text, StyleSheet, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const AsyncStorage = () => {
-  return (
-    <View>
-      <Text>AsyncStorage</Text>
-    </View>
-  );
-};
+export const storeData = async (key: string, value: any) => {
+  try {
+    const stringValue = JSON.stringify(value);
+    await AsyncStorage.setItem(key, stringValue);
+  } catch (e: any) {
+    console.error(e.message);
+  }
+}
 
-const styles = StyleSheet.create({});
-
-export default AsyncStorage;
+export const getData = async (key: string) => {
+  try {
+    const value = await AsyncStorage.getItem(key);
+    if (value !== null) {
+      const data = JSON.parse(value);
+      return data;
+    }
+  } catch (e: any) {
+    console.error(e.message);
+  }
+}
